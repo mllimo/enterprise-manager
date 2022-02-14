@@ -4,6 +4,7 @@ add_library(enterprise STATIC)
 
 target_sources(enterprise 
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/entity.h
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/entity_type.h
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/entity.cc
 )
 

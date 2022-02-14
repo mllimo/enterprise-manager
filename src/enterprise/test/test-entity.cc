@@ -11,3 +11,8 @@ TEST(Entity, EntityIdConstructor) {
   ent::Entity e(id);
   EXPECT_EQ(10, e.Id());
 }
+
+TEST(Entity, EntityType) {
+  ent::Entity e;
+  EXPECT_EQ(ent::EntityType::Entity, e.Type());
+}

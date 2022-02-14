@@ -10,4 +10,8 @@ namespace ent {
   long Entity::Id() const {
     return id_;
   }
+
+  ent::EntityType Entity::Type() const {
+    return ent::EntityType::Entity;
+  }
 }
