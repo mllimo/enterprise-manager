@@ -7,10 +7,12 @@ target_sources(enterprise
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/entity_type.h
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/client.h
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/regexs.h
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/supplier.h
 
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/entity.cc
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/regexs.cc
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/client.cc
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/supplier.cc
 )
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)

@@ -6,6 +6,8 @@ target_sources(test-enterprise
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test-main.cc 
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test-entity.cc
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test-client.cc
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test-client.cc
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test-supplier.cc
 )
 
 target_link_libraries(test-enterprise gtest_main gmock_main gmock gtest pthread enterprise)

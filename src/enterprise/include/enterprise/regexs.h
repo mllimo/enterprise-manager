@@ -6,7 +6,8 @@ namespace ent {
 
   class Regexs {
   public:
-    static std::regex email();
+    static const std::regex& email();
+    static const std::regex& phone();
   };
 
 } // namespace ent

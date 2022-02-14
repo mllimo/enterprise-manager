@@ -14,8 +14,8 @@ TEST(Supplier, SupplierDefaultConstructor) {
 TEST(Supplier, SupplierParameterConstructor) {
   long id = 1;
   std::string name = "name";
-  std::string email = "a@gmail.com"
-    std::string phone = "123456789";
+  std::string email = "a@gmail.com";
+  std::string phone = "123456789";
   std::string address = "address";
   ent::Supplier s(id, name, email, phone, address);
   EXPECT_EQ(1, s.Id());

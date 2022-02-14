@@ -4,7 +4,7 @@ namespace ent {
   enum class EntityType {
     Entity,
     Client,
-    Provider,
+    Supplier,
     Bill
   };
 } // namespace name
