@@ -1,3 +1,5 @@
+#include <nlohmann/json.hpp>
+
 #include <enterprise/client.h>
 
 namespace ent {
