@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-find_package(nlohmann)
-
-if(NLOHMANN_FOUND)
-   include_directories(${NLOHMANN_INCLUDE_DIRS})
-endif()
+add_subdirectory(test)
 
 add_library(enterprise STATIC)
 
@@ -20,4 +16,5 @@ target_include_directories(enterprise
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
   PUBLIC ${CONAN_INCLUDE_DIRS_NLOHMANN_JSON} # creo que no es la mejor opcion
 )
+
 target_link_libraries(enterprise ${CONAN_LIBS})
