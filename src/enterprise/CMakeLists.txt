@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.20)
 
+find_package(nlohmann)
+
+if(NLOHMANN_FOUND)
+   include_directories(${NLOHMANN_INCLUDE_DIRS})
+endif()
+
 add_library(enterprise STATIC)
 
 target_sources(enterprise 
@@ -7,5 +13,11 @@ target_sources(enterprise
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/test.cc
 )
 
-target_include_directories(enterprise PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
+target_include_directories(enterprise 
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+  PUBLIC ${CONAN_INCLUDE_DIRS_NLOHMANN_JSON} # creo que no es la mejor opcion
+)
 target_link_libraries(enterprise ${CONAN_LIBS})
