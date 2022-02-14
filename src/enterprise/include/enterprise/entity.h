@@ -4,7 +4,7 @@
 
 namespace ent {
 
-class Entity {
+  class Entity {
   public:
     Entity();
     Entity(long id);
@@ -16,6 +16,6 @@ class Entity {
 
   protected:
     long id_;
-};
+  };
 
 } // namespace ent

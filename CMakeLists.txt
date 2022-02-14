@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(prueba-tecnica)
+set(CMAKE_CXX_STANDARD 17)
 
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+project(prueba-tecnica)
 
 add_subdirectory(src)

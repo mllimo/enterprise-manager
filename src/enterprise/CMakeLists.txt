@@ -3,9 +3,14 @@ cmake_minimum_required(VERSION 3.20)
 add_library(enterprise STATIC)
 
 target_sources(enterprise 
-  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/entity.h
-  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/entity_type.h
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/entity.h
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/entity_type.h
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/client.h
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/regexs.h
+
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/entity.cc
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/regexs.cc
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/client.cc
 )
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)

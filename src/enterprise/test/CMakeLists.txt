@@ -5,10 +5,8 @@ add_executable(test-enterprise)
 target_sources(test-enterprise
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test-main.cc 
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test-entity.cc
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/test-client.cc
 )
-
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
 
 target_link_libraries(test-enterprise gtest_main gmock_main gmock gtest pthread enterprise)
 

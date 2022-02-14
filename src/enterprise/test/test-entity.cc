@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
 #include <enterprise/entity.h>
+#include <gtest/gtest.h> 
 
 TEST(Entity, EntityDefaultConstructor) {
   ent::Entity e;

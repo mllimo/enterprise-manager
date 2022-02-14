@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "enterprise/client.h"
+#include <enterprise/client.h>
 
 TEST(Client, ClientDefaultConstructor) {
   ent::Client c;
@@ -13,15 +13,21 @@ TEST(Client, ClientParameterConstructor) {
   std::string name = "name";
   std::string email = "email@a.es";
   ent::Client c(1, name, email);
-  
+
   EXPECT_EQ(1, c.Id());
   EXPECT_EQ(name, c.Name());
   EXPECT_EQ(email, c.Email());
 }
 
-TEST(Client, ClientWithValidEmail) {
+TEST(Client, ClientWithInvalidEmail) {
   int id = 1;
   std::string name = "name";
   std::string email = "email";
-  EXPECT_TO_THROW(ent::Client(1, name, email), std::invalid_argument);
+  try {
+    ent::Client(1, name, email);
+    FAIL();
+  }
+  catch (std::invalid_argument& err) {
+    EXPECT_TRUE(true);
+  }
 }
