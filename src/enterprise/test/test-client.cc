@@ -43,7 +43,7 @@ TEST(Client, ClientType) {
   EXPECT_EQ(ent::EntityType::Client, c.Type());
 }
 
-TEST(Client, ClientOstream) {
+TEST(Client, ClientIstreamOstream) {
   ent::Client c;
   std::ostringstream osjson;
   std::ostringstream osclient;

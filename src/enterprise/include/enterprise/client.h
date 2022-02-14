@@ -21,6 +21,9 @@ namespace ent {
 
     virtual EntityType Type() const override;
 
+    friend std::istream& operator>>(std::istream& is, Client& rhs);
+    friend std::ostream& operator<<(std::ostream& os, const Client& rhs);
+
   protected:
     std::string name_;
     std::string email_;
