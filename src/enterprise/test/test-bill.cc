@@ -31,9 +31,9 @@ TEST(Bill, BillParameterConstructor) {
   };
 
   ent::Bill b(id, client_id, supplier_id, total, date);
-  b.AddItem({1, "item1", 1.0, 1});
-  b.AddItem({2, "item2", 2.0, 2});
-  b.AddItem({3, "item3", 3.0, 3});
+  b.AddItem({ 1, "item1", 1.0, 1 });
+  b.AddItem({ 2, "item2", 2.0, 2 });
+  b.AddItem({ 3, "item3", 3.0, 3 });
 
   EXPECT_EQ(1, b.Id());
   EXPECT_EQ(2, b.ClientId());
@@ -57,6 +57,54 @@ TEST(Bill, AddItems) {
   };
 
   b.AddItems(items);
+  EXPECT_EQ(items, b.Items());
+}
+
+TEST(Bill, UpdateItemInvalid > {
+  ent::Bill b;
+  std::set<std::tuple<long, std::string, double, long>> items = {
+    std::make_tuple(1, "item1", 1.0, 1),
+    std::make_tuple(2, "item2", 2.0, 2),
+    std::make_tuple(3, "item3", 3.0, 3)
+  };
+
+  std::set<std::tuple<long, std::string, double, long>> expected = {
+    std::make_tuple(1, "item22", 22.0, 22),
+    std::make_tuple(2, "item2", 2.0, 2),
+    std::make_tuple(3, "item3", 3.0, 3)
+  };
+
+  b.AddItems(items);
+  nlohmann::json j;
+  j["name"] = "item22";
+  j["price"] = 22.0;
+  j["quantity"] = 22;
+  auto it = b.UpdateItem(3, j);
+
+  EXPECT_EQ(it, b.end());
+}
+
+TEST(Bill, UpdateItemValid > {
+  ent::Bill b;
+  std::set<std::tuple<long, std::string, double, long>> items = {
+    std::make_tuple(1, "item1", 1.0, 1),
+    std::make_tuple(2, "item2", 2.0, 2),
+    std::make_tuple(3, "item3", 3.0, 3)
+  };
+
+  std::set<std::tuple<long, std::string, double, long>> expected = {
+    std::make_tuple(1, "item22", 22.0, 22),
+    std::make_tuple(2, "item2", 2.0, 2),
+    std::make_tuple(3, "item3", 3.0, 3)
+  };
+
+  b.AddItems(items);
+  nlohmann::json j;
+  j["name"] = "item22";
+  j["price"] = 22.0;
+  j["quantity"] = 22;
+  b.UpdateItem(1, j);
+
   EXPECT_EQ(items, b.Items());
 }
 
