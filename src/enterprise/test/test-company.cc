@@ -10,20 +10,14 @@ TEST(Company, DefaultConstructor) {
   ent::Company c;
   EXPECT_EQ(-1, c.Id());
   EXPECT_EQ("", c.Cif());
-  EXPECT_EQ(0, c.Clients().size());
-  EXPECT_EQ(0, c.Suppliers().size());
-  EXPECT_EQ(0, c.Bills().size());
 }
 
 TEST(Company, ParameterConstructor) {
-  int id = 1;
-  std::string cif = "cif";
+  long id = 1;
+  std::string cif = "A12345678";
   ent::Company c(id, cif);
   EXPECT_EQ(id, c.Id());
-  EXPECT_EQ(cif, c.Cif());
-  EXPECT_EQ(0, c.Clients().size());
-  EXPECT_EQ(0, c.Suppliers().size());
-  EXPECT_EQ(0, c.Bills().size());
+
 }
 
 TEST(Company, CompanyType) {

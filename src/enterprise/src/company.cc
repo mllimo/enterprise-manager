@@ -106,4 +106,69 @@ namespace ent {
     return Status{ (entity != nullptr ? StatusType::OK : StatusType::FAIL), entity };
   }
 
+    std::istream& operator>>(std::istream& is, Company& rhs) {
+      nlon::json obj;
+      is >> obj;
+      rhs.id_ = obj["id"];
+      rhs.cif_ = obj["cif"];
+    
+      auto clients = obj["clients"];
+      auto suppliers = obj["suppliers"];
+      auto bills = obj["bills"];
+
+      for (auto& client : clients) {
+        std::istringstream iss(client.dump());
+        Client c;
+        iss >> c;
+        rhs.clients_.insert(c);
+      }
+
+      for (auto& supplier : suppliers) {
+        std::istringstream iss(supplier.dump());
+        Supplier s;
+        iss >> s;
+        rhs.suppliers_.insert(s);
+      }
+
+      for (auto& bill : bills) {
+        std::istringstream iss(bill.dump());
+        Bill b;
+        iss >> b;
+        rhs.bills_.insert(b);
+      }
+
+      return is;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const Company& rhs) {
+      nlon::json obj;
+      obj["id"] = rhs.id_;
+      obj["cif"] = rhs.cif_;
+
+      auto clients = rhs.clients_;
+      auto suppliers = rhs.suppliers_;
+      auto bills = rhs.bills_;
+
+      for (auto& client : clients) {
+        std::ostringstream oss;
+        oss << client;
+        obj["clients"].push_back(oss.str());
+      }
+
+      for (auto& supplier : suppliers) {
+        std::ostringstream oss;
+        oss << supplier;
+        obj["suppliers"].push_back(oss.str());
+      }
+
+      for (auto& bill : bills) {
+        std::ostringstream oss;
+        oss << bill;
+        obj["bills"].push_back(oss.str());
+      }
+
+      os << obj;
+      return os;
+    }
+
 } // namespace ent
