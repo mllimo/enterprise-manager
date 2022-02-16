@@ -162,7 +162,7 @@ namespace ent {
     for (auto& item : json["items"]) {
       Item aux_item;
       std::get<0>(aux_item) = item["id"];
-      std::get<1>(aux_item) = item["name"];
+      std::get<1>(aux_item) = item["description"];
       std::get<2>(aux_item) = item["price"];
       std::get<3>(aux_item) = item["quantity"];
       rhs.items_.insert(aux_item);
@@ -181,7 +181,7 @@ namespace ent {
     for (auto& item : rhs.items_) {
       nlohmann::json aux_item;
       aux_item["id"] = std::get<0>(item);
-      aux_item["name"] = std::get<1>(item);
+      aux_item["description"] = std::get<1>(item);
       aux_item["price"] = std::get<2>(item);
       aux_item["quantity"] = std::get<3>(item);
       json["items"].push_back(aux_item);

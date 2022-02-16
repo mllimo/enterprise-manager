@@ -18,9 +18,9 @@ TEST(Client, ClientParameterConstructor) {
   int id = 1;
   std::string name = "name";
   std::string email = "email@a.es";
-  ent::Client c(1, name, email);
+  ent::Client c(id, name, email);
 
-  EXPECT_EQ(1, c.Id());
+  EXPECT_EQ(id, c.Id());
   EXPECT_EQ(name, c.Name());
   EXPECT_EQ(email, c.Email());
 }
@@ -30,7 +30,7 @@ TEST(Client, ClientWithInvalidEmail) {
   std::string name = "name";
   std::string email = "email";
   try {
-    ent::Client(1, name, email);
+    ent::Client(id, name, email);
     FAIL();
   }
   catch (std::invalid_argument& err) {

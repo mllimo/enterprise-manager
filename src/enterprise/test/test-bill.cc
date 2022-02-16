@@ -119,20 +119,32 @@ TEST(Bill, OstreamIstream) {
   expected_json["client_id"] = 2;
   expected_json["supplier_id"] = 3;
   expected_json["date"] = "2019-01-01";
-  expected_json["items"] = {
-    {1, "item1", 1.0, 1},
-    {2, "item2", 2.0, 2},
-    {3, "item3", 3.0, 3}
-  };
+  
+  nlohmann::json item1;
+  item1["id"] = 1;
+  item1["description"] = "item1";
+  item1["price"] = 1.0;
+  item1["quantity"] = 1;
+  nlohmann::json item2;
+  item2["id"] = 2;
+  item2["description"] = "item2";
+  item2["price"] = 2.0;
+  item2["quantity"] = 2;
+  nlohmann::json item3;
+  item3["id"] = 3;
+  item3["description"] = "item3";
+  item3["price"] = 3.0;
+  item3["quantity"] = 3;
+
+  expected_json["items"] = { item1, item2, item3 };
 
   osjson << expected_json;
   std::string expected_str = osjson.str();
   std::istringstream isjson(expected_str);
-
+  std::ostringstream osc;
   isjson >> b;
-  EXPECT_EQ(expected_json["id"], b.Id());
-  EXPECT_EQ(expected_json["client_id"], b.ClientId());
-  EXPECT_EQ(expected_json["supplier_id"], b.SupplierId());
-  EXPECT_EQ(expected_json["date"], b.Date());
-  EXPECT_EQ(expected_json["items"], b.Items());
+  osc << b;
+  std::string actual_str = osc.str();
+
+  EXPECT_EQ(expected_str, actual_str);
 }
