@@ -11,13 +11,11 @@
 
 namespace ent {
 
-  // Todo: Compare set with the id of the item
+  typedef std::tuple<long, std::string, double, long> Item;
 
   struct CompareItem {
     bool operator()(const Item& lhs, const Item& rhs) const;
   };
-
-  typedef std::tuple<long, std::string, double, long> Item;
 
   class Billiterator {
   public:
@@ -37,7 +35,7 @@ namespace ent {
     ContPointer operator->();
 
   private:
-    std::set<ValueType>::iterator it_;
+    std::set<ValueType, CompareItem>::iterator it_;
   };
 
   class Bill : public Entity {
@@ -79,7 +77,7 @@ namespace ent {
     std::string email_;
     std::string phone_;
     std::string address_;
-    std::set <std::tuple<Item>, CompareItem> items_;
+    std::set <Item, CompareItem> items_;
   };
 
 } // namespace ent

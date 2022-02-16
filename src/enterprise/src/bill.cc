@@ -91,12 +91,23 @@ namespace ent {
     Item aux_item;
     std::get<0>(aux_item) = id;
     auto it = items_.find(aux_item);
+
     if (it != items_.end()) {
-      // Check if the item key exist and then update aux_item
-      // remove it element from items
-      // insert aux_item 
-      // return iterator to aux_item
+      aux_item = *it;
+      items_.erase(it);
+      if (item.contains("name")) {
+        std::get<1>(aux_item) = item["name"];
+      }
+      if (item.contains("price")) {
+        std::get<2>(aux_item) = item["price"];
+      }
+      if (item.contains("quantity")) {
+        std::get<3>(aux_item) = item["quantity"];
+      }
+      auto pair_it = items_.insert(aux_item);
+      return Billiterator(pair_it.first);
     }
+
     return cend();
   }
 
@@ -113,31 +124,68 @@ namespace ent {
   }
 
   Bill::const_iterator Bill::GetItems(long id) {
-
+    Item aux_item;
+    std::get<0>(aux_item) = id;
+    auto it = items_.find(aux_item);
+    if (it != items_.end()) {
+      return Billiterator(it);
+    }
+    return cend();
   }
 
   Bill::const_iterator Bill::cbegin() {
-    return const_iterator(items_.begin());
+    return Billiterator(items_.cbegin());
   }
 
   Bill::const_iterator Bill::cend() {
-    return const_iterator(items_.end());
+    return Billiterator(items_.cend());
   }
 
 
   EntityType Bill::Type() const {
     return EntityType::Bill;
-  }	
+  }
 
   std::istream& operator>>(std::istream& is, Bill& rhs) {
     nlohmann::json json;
     is >> json;
+    rhs.id_ = json["id"];
+    rhs.name_ = json["name"];
+    rhs.email_ = json["email"];
+    rhs.phone_ = json["phone"];
+    rhs.address_ = json["address"];
 
-    // TODO
+    for (auto& item : json["items"]) {
+      Item aux_item;
+      std::get<0>(aux_item) = item["id"];
+      std::get<1>(aux_item) = item["name"];
+      std::get<2>(aux_item) = item["price"];
+      std::get<3>(aux_item) = item["quantity"];
+      rhs.items_.insert(aux_item);
+    }
+
+    return is;
   }
 
   std::ostream& operator<<(std::ostream& os, const Bill& rhs) {
+    nlohmann::json json;
+    json["id"] = rhs.id_;
+    json["name"] = rhs.name_;
+    json["email"] = rhs.email_;
+    json["phone"] = rhs.phone_;
+    json["address"] = rhs.address_;
 
+    for (auto& item : rhs.items_) {
+      nlohmann::json aux_item;
+      aux_item["id"] = std::get<0>(item);
+      aux_item["name"] = std::get<1>(item);
+      aux_item["price"] = std::get<2>(item);
+      aux_item["quantity"] = std::get<3>(item);
+      json["items"].push_back(aux_item);
+    }
+
+    os << json;
+    return os;
   }
 
 }
