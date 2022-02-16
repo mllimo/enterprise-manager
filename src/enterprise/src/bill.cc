@@ -109,6 +109,7 @@ namespace ent {
         std::get<3>(aux_item) = item["quantity"];
       }
       auto pair_it = items_.insert(aux_item);
+
       return Billiterator(pair_it.first);
     }
 

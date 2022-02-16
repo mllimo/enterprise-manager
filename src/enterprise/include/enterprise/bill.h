@@ -4,6 +4,7 @@
 #include <string>
 #include <tuple>
 #include <iterator>
+#include <iostream>
 
 #include <nlohmann/json.hpp>
 #include <enterprise/entity.h>

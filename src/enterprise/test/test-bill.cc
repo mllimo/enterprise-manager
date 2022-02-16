@@ -80,9 +80,9 @@ TEST(Bill, UpdateItemInvalid) {
   j["name"] = "item22";
   j["price"] = 22.0;
   j["quantity"] = 22;
-  auto it = b.UpdateItem(3, j);
+  auto it = b.UpdateItem(4, j);
 
-  EXPECT_EQ(it, b.cend());
+  EXPECT_TRUE(it == b.cend());
 }
 
 TEST(Bill, UpdateItemValid) {
@@ -106,7 +106,7 @@ TEST(Bill, UpdateItemValid) {
   j["quantity"] = 22;
   b.UpdateItem(1, j);
 
-  EXPECT_EQ(items, b.Items());
+  EXPECT_EQ(expected, b.Items());
 }
 
 TEST(Bill, OstreamIstream) {
@@ -118,8 +118,7 @@ TEST(Bill, OstreamIstream) {
   expected_json["id"] = 1;
   expected_json["client_id"] = 2;
   expected_json["supplier_id"] = 3;
-  expected_json["total"] = 4;
-  expected_json["date"] = 5;
+  expected_json["date"] = "2019-01-01";
   expected_json["items"] = {
     {1, "item1", 1.0, 1},
     {2, "item2", 2.0, 2},
@@ -134,7 +133,6 @@ TEST(Bill, OstreamIstream) {
   EXPECT_EQ(expected_json["id"], b.Id());
   EXPECT_EQ(expected_json["client_id"], b.ClientId());
   EXPECT_EQ(expected_json["supplier_id"], b.SupplierId());
-  EXPECT_EQ(expected_json["total"], b.Total());
   EXPECT_EQ(expected_json["date"], b.Date());
   EXPECT_EQ(expected_json["items"], b.Items());
 }
