@@ -4,6 +4,10 @@
 #include <enterprise/supplier.h>
 #include <enterprise/bill.h>
 
+#include <set>
+#include <string>
+#include <memory>
+
 namespace ent {
 
   class Company : public Entity {
