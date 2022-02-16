@@ -8,38 +8,39 @@
 
 TEST(Bill, BillDefaultConstructor) {
   ent::Bill b;
+  std::set<ent::Item, ent::CompareItem> empty;
   EXPECT_EQ(-1, b.Id());
   EXPECT_EQ(-1, b.ClientId());
   EXPECT_EQ(-1, b.SupplierId());
   EXPECT_EQ(0, b.Total());
-  EXPECT_EQ(0, b.Date());
-  EXPECT_EQ({}, b.Items());
+  EXPECT_EQ("", b.Date());
+  EXPECT_EQ(empty, b.Items());
 }
 
 TEST(Bill, BillParameterConstructor) {
   long id = 1;
   long client_id = 2;
   long supplier_id = 3;
-  int total = 4;
-  int date = 5;
+  double total = 1 + 4 + 9;
+  std::string date = "2019-01-01";
 
   // id, description, price, quantity
-  std::set<std::tuple<long, std::string, double, long>> items = {
+  std::set<ent::Item, ent::CompareItem> items = {
     std::make_tuple(1, "item1", 1.0, 1),
     std::make_tuple(2, "item2", 2.0, 2),
     std::make_tuple(3, "item3", 3.0, 3)
   };
 
-  ent::Bill b(id, client_id, supplier_id, total, date);
+  ent::Bill b(id, client_id, supplier_id, date);
   b.AddItem({ 1, "item1", 1.0, 1 });
   b.AddItem({ 2, "item2", 2.0, 2 });
   b.AddItem({ 3, "item3", 3.0, 3 });
 
-  EXPECT_EQ(1, b.Id());
-  EXPECT_EQ(2, b.ClientId());
-  EXPECT_EQ(3, b.SupplierId());
-  EXPECT_EQ(4, b.Total());
-  EXPECT_EQ(5, b.Date());
+  EXPECT_EQ(id, b.Id());
+  EXPECT_EQ(client_id, b.ClientId());
+  EXPECT_EQ(supplier_id, b.SupplierId());
+  EXPECT_EQ(total, b.Total());
+  EXPECT_EQ(date, b.Date());
   EXPECT_EQ(items, b.Items());
 }
 
@@ -50,7 +51,7 @@ TEST(Bill, BillType) {
 
 TEST(Bill, AddItems) {
   ent::Bill b;
-  std::set<std::tuple<long, std::string, double, long>> items = {
+  std::set<ent::Item, ent::CompareItem> items = {
     std::make_tuple(1, "item1", 1.0, 1),
     std::make_tuple(2, "item2", 2.0, 2),
     std::make_tuple(3, "item3", 3.0, 3)
@@ -60,15 +61,15 @@ TEST(Bill, AddItems) {
   EXPECT_EQ(items, b.Items());
 }
 
-TEST(Bill, UpdateItemInvalid > {
+TEST(Bill, UpdateItemInvalid) {
   ent::Bill b;
-  std::set<std::tuple<long, std::string, double, long>> items = {
+  std::set<ent::Item, ent::CompareItem> items = {
     std::make_tuple(1, "item1", 1.0, 1),
     std::make_tuple(2, "item2", 2.0, 2),
     std::make_tuple(3, "item3", 3.0, 3)
   };
 
-  std::set<std::tuple<long, std::string, double, long>> expected = {
+  std::set<ent::Item, ent::CompareItem> expected = {
     std::make_tuple(1, "item22", 22.0, 22),
     std::make_tuple(2, "item2", 2.0, 2),
     std::make_tuple(3, "item3", 3.0, 3)
@@ -81,18 +82,18 @@ TEST(Bill, UpdateItemInvalid > {
   j["quantity"] = 22;
   auto it = b.UpdateItem(3, j);
 
-  EXPECT_EQ(it, b.end());
+  EXPECT_EQ(it, b.cend());
 }
 
-TEST(Bill, UpdateItemValid > {
+TEST(Bill, UpdateItemValid) {
   ent::Bill b;
-  std::set<std::tuple<long, std::string, double, long>> items = {
+  std::set<ent::Item, ent::CompareItem> items = {
     std::make_tuple(1, "item1", 1.0, 1),
     std::make_tuple(2, "item2", 2.0, 2),
     std::make_tuple(3, "item3", 3.0, 3)
   };
 
-  std::set<std::tuple<long, std::string, double, long>> expected = {
+  std::set<ent::Item, ent::CompareItem> expected = {
     std::make_tuple(1, "item22", 22.0, 22),
     std::make_tuple(2, "item2", 2.0, 2),
     std::make_tuple(3, "item3", 3.0, 3)
@@ -108,7 +109,7 @@ TEST(Bill, UpdateItemValid > {
   EXPECT_EQ(items, b.Items());
 }
 
-TEST(Bill, OstreamIsteram) {
+TEST(Bill, OstreamIstream) {
   ent::Bill b;
   std::ostringstream osjson;
   std::ostringstream osclient;

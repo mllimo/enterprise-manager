@@ -23,12 +23,12 @@ namespace ent {
     return tmp;
   }
 
-  bool Billiterator::operator==(const Billiterator& rhs) {
-    return it_ == rhs.it_;
+  bool operator==(const Billiterator& lhs, const Billiterator& rhs) {
+    return lhs.it_ == rhs.it_;
   }
 
-  bool Billiterator::operator!=(const Billiterator& rhs) {
-    return it_ != rhs.it_;
+  bool operator!=(const Billiterator& lhs, const Billiterator& rhs) {
+    return lhs.it_ != rhs.it_;
   }
 
   Billiterator::ConstReference Billiterator::operator*() {
@@ -39,50 +39,54 @@ namespace ent {
     return &*it_;
   }
 
-  Bill::Bill() : Entity() {}
+  Bill::Bill() : Entity(), client_id_(-1), supplier_id_(-1) {}
 
-  Bill::Bill(long id, const std::string& name, const std::string& email, const std::string& phone, const std::string& address)
-    : Entity(id), name_(name), email_(email), phone_(phone), address_(address) {}
+  Bill::Bill(long id, long client_id, long supplier_id, const std::string& date)
+    : Entity(id), client_id_(client_id), supplier_id_(supplier_id), date_(date) {}
 
   Bill::~Bill() {}
 
-  const std::string& Bill::Name() const {
-    return name_;
+  const std::set<Item, CompareItem>& Bill::Items() const {
+    return items_;
   }
 
-  const std::string& Bill::Email() const {
-    return email_;
+  long Bill::ClientId() const {
+    return client_id_;
   }
 
-  const std::string& Bill::Phone() const {
-    return phone_;
+  long Bill::SupplierId() const {
+    return supplier_id_;
   }
 
-  const std::string& Bill::Address() const {
-    return address_;
+  const std::string& Bill::Date() const {
+    return date_;
   }
 
-  void Bill::Name(const std::string& name) {
-    name_ = name;
+  double Bill::Total() const {
+    double total = 0.f;
+    for (const auto& item : items_) {
+      total += std::get<2>(item) * std::get<3>(item);
+    }
+    return total;
   }
 
-  void Bill::Email(const std::string& email) {
-    email_ = email;
+  void Bill::ClientId(long id) {
+    client_id_ = id;
   }
 
-  void Bill::Phone(const std::string& phone) {
-    phone_ = phone;
+  void Bill::SupplierId(long id) {
+    supplier_id_ = id;
   }
 
-  void Bill::Address(const std::string& address) {
-    address_ = address;
+  void Bill::Date(const std::string& date) {
+    date_ = date;
   }
 
   void Bill::AddItem(const Item& item) {
     items_.insert(item);
   }
 
-  void Bill::AddItems(const std::set<Item>& items) {
+  void Bill::AddItems(const std::set<ent::Item, ent::CompareItem>& items) {
     items_.insert(items.begin(), items.end());
   }
 
@@ -150,10 +154,9 @@ namespace ent {
     nlohmann::json json;
     is >> json;
     rhs.id_ = json["id"];
-    rhs.name_ = json["name"];
-    rhs.email_ = json["email"];
-    rhs.phone_ = json["phone"];
-    rhs.address_ = json["address"];
+    rhs.client_id_ = json["client_id"];
+    rhs.supplier_id_ = json["supplier_id"];
+    rhs.date_ = json["date"];
 
     for (auto& item : json["items"]) {
       Item aux_item;
@@ -170,10 +173,9 @@ namespace ent {
   std::ostream& operator<<(std::ostream& os, const Bill& rhs) {
     nlohmann::json json;
     json["id"] = rhs.id_;
-    json["name"] = rhs.name_;
-    json["email"] = rhs.email_;
-    json["phone"] = rhs.phone_;
-    json["address"] = rhs.address_;
+    json["client_id"] = rhs.client_id_;
+    json["supplier_id"] = rhs.supplier_id_;
+    json["date"] = rhs.date_;
 
     for (auto& item : rhs.items_) {
       nlohmann::json aux_item;

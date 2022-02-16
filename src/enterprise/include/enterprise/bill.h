@@ -29,8 +29,8 @@ namespace ent {
     Billiterator& operator++();
     Billiterator operator++(int);
 
-    bool operator==(const Billiterator& rhs);
-    bool operator!=(const Billiterator& rhs);
+    friend bool operator==(const Billiterator& lhs, const Billiterator& rhs);
+    friend bool operator!=(const Billiterator& lhs, const Billiterator& rhs);
     ConstReference operator*();
     ContPointer operator->();
 
@@ -43,21 +43,23 @@ namespace ent {
     using const_iterator = Billiterator;
 
     Bill();
-    Bill(long id, const std::string& name, const std::string& email, const std::string& phone, const std::string& address);
+    Bill(long id, long client_id, long supplier_id, const std::string& date);
     virtual ~Bill();
 
-    const std::string& Name() const;
-    const std::string& Email() const;
-    const std::string& Phone() const;
-    const std::string& Address() const;
+    const std::set<Item, CompareItem>& Items() const;
+    const std::string& Date() const;
+    long SupplierId() const;
+    long ClientId() const;
+    double Total() const;
 
-    void Name(const std::string& name);
-    void Email(const std::string& email);
-    void Phone(const std::string& phone);
-    void Address(const std::string& address);
+
+    void ClientId(long id);
+    void SupplierId(long id);
+    void Date(const std::string& date);
+
 
     void AddItem(const Item& item);
-    void AddItems(const std::set<Item>& items);
+    void AddItems(const std::set<ent::Item, ent::CompareItem>& items);
 
     // TODO: Remove, Update, GetItems
     const_iterator UpdateItem(long id, const nlohmann::json& item);
@@ -73,10 +75,9 @@ namespace ent {
     friend std::ostream& operator<<(std::ostream& os, const Bill& rhs);
 
   protected:
-    std::string name_;
-    std::string email_;
-    std::string phone_;
-    std::string address_;
+    long client_id_;
+    long supplier_id_;
+    std::string date_;
     std::set <Item, CompareItem> items_;
   };
 
