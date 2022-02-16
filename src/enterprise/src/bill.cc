@@ -173,30 +173,17 @@ namespace ent {
 
   std::ostream& operator<<(std::ostream& os, const Bill& rhs) {
     nlohmann::json json;
-    json["id"] = rhs.id_;
-    json["client_id"] = rhs.client_id_;
-    json["supplier_id"] = rhs.supplier_id_;
-    json["date"] = rhs.date_;
-
-    for (auto& item : rhs.items_) {
-      nlohmann::json aux_item;
-      aux_item["id"] = std::get<0>(item);
-      aux_item["description"] = std::get<1>(item);
-      aux_item["price"] = std::get<2>(item);
-      aux_item["quantity"] = std::get<3>(item);
-      json["items"].push_back(aux_item);
-    }
-
+    nlohmann::to_json(json, rhs);
     os << json;
     return os;
   }
 
   bool operator==(const Bill& lhs, const Bill& rhs) {
-    return lhs.id_ == rhs.id_ && 
-           lhs.client_id_ == rhs.client_id_ && 
-           lhs.supplier_id_ == rhs.supplier_id_ && 
-           lhs.date_ == rhs.date_ && 
-           lhs.items_ == rhs.items_;
+    return lhs.id_ == rhs.id_ &&
+      lhs.client_id_ == rhs.client_id_ &&
+      lhs.supplier_id_ == rhs.supplier_id_ &&
+      lhs.date_ == rhs.date_ &&
+      lhs.items_ == rhs.items_;
   }
 
   bool operator!=(const Bill& lhs, const Bill& rhs) {
@@ -219,4 +206,23 @@ namespace ent {
     return lhs.id_ >= rhs.id_;
   }
 
-}
+
+  void to_json(nlohmann::json& j, const Bill& rhs) {
+    j = nlohmann::json {
+      {"id", rhs.id_},
+      {"client_id", rhs.client_id_},
+      {"supplier_id", rhs.supplier_id_},
+      {"date", rhs.date_}
+    };
+
+    for (auto& item : rhs.items_) {
+      nlohmann::json aux_item;
+      aux_item["id"] = std::get<0>(item);
+      aux_item["description"] = std::get<1>(item);
+      aux_item["price"] = std::get<2>(item);
+      aux_item["quantity"] = std::get<3>(item);
+      j["items"].push_back(aux_item);
+    }
+  }
+
+} // namespace ent

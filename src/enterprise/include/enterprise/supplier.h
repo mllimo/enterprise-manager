@@ -35,6 +35,8 @@ namespace ent {
     friend bool operator<=(const Supplier& lhs, const Supplier& rhs);
     friend bool operator>=(const Supplier& lhs, const Supplier& rhs);
 
+    friend void to_json(nlohmann::json& j, const Supplier& rhs);
+
   protected:
     std::string name_;
     std::string email_;

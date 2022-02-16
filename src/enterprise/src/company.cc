@@ -150,21 +150,15 @@ namespace ent {
     auto bills = rhs.bills_;
 
     for (auto& client : clients) {
-      std::ostringstream oss;
-      oss << client;
-      obj["clients"].push_back(oss.str());
+      obj["clients"].push_back(client);
     }
 
     for (auto& supplier : suppliers) {
-      std::ostringstream oss;
-      oss << supplier;
-      obj["suppliers"].push_back(oss.str());
+      obj["suppliers"].push_back(supplier);
     }
 
     for (auto& bill : bills) {
-      std::ostringstream oss;
-      oss << bill;
-      obj["bills"].push_back(oss.str());
+      obj["bills"].push_back(bill);
     }
 
     os << obj;

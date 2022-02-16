@@ -82,6 +82,8 @@ namespace ent {
     friend bool operator<=(const Bill& lhs, const Bill& rhs);
     friend bool operator>=(const Bill& lhs, const Bill& rhs);
 
+    friend void to_json(nlohmann::json& j, const Bill& rhs);
+
   protected:
     long client_id_;
     long supplier_id_;

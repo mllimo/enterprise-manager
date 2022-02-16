@@ -87,6 +87,6 @@ TEST(Compnay, CompanyIstreamOstream) {
   oscompany << c;
 
   std::string actual_str = oscompany.str();
-
-  EXPECT_EQ(expected_str, actual_str);
+  nlohmann::json actual_json = nlohmann::json::parse(actual_str);
+  EXPECT_EQ(expected_json, actual_json);
 }

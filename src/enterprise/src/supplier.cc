@@ -67,43 +67,47 @@ namespace ent {
 
   std::ostream& operator<<(std::ostream& os, const Supplier& rhs) {
     nlohmann::json json;
-    json["id"] = rhs.Id();
-    json["name"] = rhs.name_;
-    json["email"] = rhs.email_;
-    json["phone"] = rhs.phone_;
-    json["address"] = rhs.address_;
-
+    to_json(json, rhs);
     os << json;
-
     return os;
   }
 
-    bool operator==(const Supplier& lhs, const Supplier& rhs) {
-      return lhs.Id() == rhs.Id() && 
-             lhs.name_ == rhs.name_ && 
-             lhs.email_ == rhs.email_ && 
-             lhs.phone_ == rhs.phone_ && 
-             lhs.address_ == rhs.address_;
-    }
+  bool operator==(const Supplier& lhs, const Supplier& rhs) {
+    return lhs.Id() == rhs.Id() &&
+      lhs.name_ == rhs.name_ &&
+      lhs.email_ == rhs.email_ &&
+      lhs.phone_ == rhs.phone_ &&
+      lhs.address_ == rhs.address_;
+  }
 
-    bool operator!=(const Supplier& lhs, const Supplier& rhs) {
-      return !(lhs == rhs);
-    }
+  bool operator!=(const Supplier& lhs, const Supplier& rhs) {
+    return !(lhs == rhs);
+  }
 
-    bool operator<(const Supplier& lhs, const Supplier& rhs) {
-      return lhs.Id() < rhs.Id();
-    }
+  bool operator<(const Supplier& lhs, const Supplier& rhs) {
+    return lhs.Id() < rhs.Id();
+  }
 
-    bool operator>(const Supplier& lhs, const Supplier& rhs) {
-      return rhs < lhs;
-    }
+  bool operator>(const Supplier& lhs, const Supplier& rhs) {
+    return rhs < lhs;
+  }
 
-    bool operator<=(const Supplier& lhs, const Supplier& rhs) {
-      return !(rhs < lhs);
-    }
+  bool operator<=(const Supplier& lhs, const Supplier& rhs) {
+    return !(rhs < lhs);
+  }
 
-    bool operator>=(const Supplier& lhs, const Supplier& rhs) {
-      return !(lhs < rhs);
-    }
+  bool operator>=(const Supplier& lhs, const Supplier& rhs) {
+    return !(lhs < rhs);
+  }
+
+  void to_json(nlohmann::json& j, const Supplier& rhs) {
+    j = nlohmann::json{
+      {"id", rhs.Id()},
+      {"name", rhs.Name()},
+      {"email", rhs.Email()},
+      {"phone", rhs.Phone()},
+      {"address", rhs.Address()}
+    };
+  }
 
 }

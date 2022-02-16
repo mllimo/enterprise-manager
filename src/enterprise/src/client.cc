@@ -46,12 +46,8 @@ namespace ent {
 
   std::ostream& operator<<(std::ostream& os, const ent::Client& rhs) {
     nlohmann::json json;
-    json["id"] = rhs.Id();
-    json["name"] = rhs.name_;
-    json["email"] = rhs.email_;
-
+    to_json(json, rhs);
     os << json;
-
     return os;
   }
 
@@ -79,4 +75,11 @@ namespace ent {
     return lhs.Id() >= rhs.Id();
   }
 
+  void to_json(nlohmann::json& j, const Client& rhs) {
+    j = nlohmann::json{
+      {"id", rhs.Id()},
+      {"name", rhs.Name()},
+      {"email", rhs.Email()}
+    };
+  }
 } // namespace ent
