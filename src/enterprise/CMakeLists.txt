@@ -28,6 +28,6 @@ target_include_directories(enterprise
   PUBLIC ${CONAN_INCLUDE_DIRS_NLOHMANN_JSON} # creo que no es la mejor opcion
 )
 
-target_link_libraries(enterprise ${CONAN_LIBS})
+target_link_libraries(enterprise ${CONAN_LIBS_NLOHMANN_JSON})
 
 add_subdirectory(test)

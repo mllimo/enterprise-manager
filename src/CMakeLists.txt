@@ -1,2 +1,2 @@
 add_subdirectory(enterprise)
-add_subdirectory(enterprise-manager)
+add_subdirectory(manager)
