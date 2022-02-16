@@ -23,6 +23,12 @@ namespace ent {
 
     friend std::istream& operator>>(std::istream& is, Client& rhs);
     friend std::ostream& operator<<(std::ostream& os, const Client& rhs);
+    friend bool operator==(const Client& lhs, const Client& rhs);
+    friend bool operator!=(const Client& lhs, const Client& rhs);
+    friend bool operator<(const Client& lhs, const Client& rhs);
+    friend bool operator>(const Client& lhs, const Client& rhs);
+    friend bool operator<=(const Client& lhs, const Client& rhs);
+    friend bool operator>=(const Client& lhs, const Client& rhs);
 
   protected:
     std::string name_;

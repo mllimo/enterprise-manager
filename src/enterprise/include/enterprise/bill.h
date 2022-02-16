@@ -75,6 +75,13 @@ namespace ent {
     friend std::istream& operator>>(std::istream& is, Bill& rhs);
     friend std::ostream& operator<<(std::ostream& os, const Bill& rhs);
 
+    friend bool operator==(const Bill& lhs, const Bill& rhs);
+    friend bool operator!=(const Bill& lhs, const Bill& rhs);
+    friend bool operator<(const Bill& lhs, const Bill& rhs);
+    friend bool operator>(const Bill& lhs, const Bill& rhs);
+    friend bool operator<=(const Bill& lhs, const Bill& rhs);
+    friend bool operator>=(const Bill& lhs, const Bill& rhs);
+
   protected:
     long client_id_;
     long supplier_id_;

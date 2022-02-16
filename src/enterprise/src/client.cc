@@ -55,4 +55,28 @@ namespace ent {
     return os;
   }
 
-}
+  bool operator==(const Client& lhs, const Client& rhs) {
+    return lhs.Id() == rhs.Id() && lhs.name_ == rhs.name_ && lhs.email_ == rhs.email_;
+  }
+
+  bool operator!=(const Client& lhs, const Client& rhs) {
+    return !(lhs == rhs);
+  }
+
+  bool operator<(const Client& lhs, const Client& rhs) {
+    return lhs.Id() < rhs.Id();
+  }
+
+  bool operator>(const Client& lhs, const Client& rhs) {
+    return lhs.Id() > rhs.Id();
+  }
+
+  bool operator<=(const Client& lhs, const Client& rhs) {
+    return lhs.Id() <= rhs.Id();
+  }
+
+  bool operator>=(const Client& lhs, const Client& rhs) {
+    return lhs.Id() >= rhs.Id();
+  }
+
+} // namespace ent

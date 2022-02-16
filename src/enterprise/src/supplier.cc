@@ -77,4 +77,33 @@ namespace ent {
 
     return os;
   }
+
+    bool operator==(const Supplier& lhs, const Supplier& rhs) {
+      return lhs.Id() == rhs.Id() && 
+             lhs.name_ == rhs.name_ && 
+             lhs.email_ == rhs.email_ && 
+             lhs.phone_ == rhs.phone_ && 
+             lhs.address_ == rhs.address_;
+    }
+
+    bool operator!=(const Supplier& lhs, const Supplier& rhs) {
+      return !(lhs == rhs);
+    }
+
+    bool operator<(const Supplier& lhs, const Supplier& rhs) {
+      return lhs.Id() < rhs.Id();
+    }
+
+    bool operator>(const Supplier& lhs, const Supplier& rhs) {
+      return rhs < lhs;
+    }
+
+    bool operator<=(const Supplier& lhs, const Supplier& rhs) {
+      return !(rhs < lhs);
+    }
+
+    bool operator>=(const Supplier& lhs, const Supplier& rhs) {
+      return !(lhs < rhs);
+    }
+
 }

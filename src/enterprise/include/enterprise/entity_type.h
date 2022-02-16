@@ -5,6 +5,7 @@ namespace ent {
     Entity,
     Client,
     Supplier,
-    Bill
+    Bill,
+    Company
   };
 } // namespace name

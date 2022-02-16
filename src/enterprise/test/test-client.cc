@@ -3,7 +3,6 @@
 
 #include <sstream>
 
-
 #include <enterprise/client.h>
 
 

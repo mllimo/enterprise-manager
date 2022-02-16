@@ -191,4 +191,32 @@ namespace ent {
     return os;
   }
 
+  bool operator==(const Bill& lhs, const Bill& rhs) {
+    return lhs.id_ == rhs.id_ && 
+           lhs.client_id_ == rhs.client_id_ && 
+           lhs.supplier_id_ == rhs.supplier_id_ && 
+           lhs.date_ == rhs.date_ && 
+           lhs.items_ == rhs.items_;
+  }
+
+  bool operator!=(const Bill& lhs, const Bill& rhs) {
+    return !(lhs == rhs);
+  }
+
+  bool operator<(const Bill& lhs, const Bill& rhs) {
+    return lhs.id_ < rhs.id_;
+  }
+
+  bool operator>(const Bill& lhs, const Bill& rhs) {
+    return lhs.id_ > rhs.id_;
+  }
+
+  bool operator<=(const Bill& lhs, const Bill& rhs) {
+    return lhs.id_ <= rhs.id_;
+  }
+
+  bool operator>=(const Bill& lhs, const Bill& rhs) {
+    return lhs.id_ >= rhs.id_;
+  }
+
 }
