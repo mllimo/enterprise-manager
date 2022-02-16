@@ -11,4 +11,9 @@ namespace ent {
     static std::regex phone_regex("\\d+");
     return phone_regex;
   }
+
+  const std::regex& Regexs::cif() {
+    static std::regex cif_regex("[A-Z][0-9]{8}");
+    return cif_regex;
+  }
 } // namespace ent

@@ -10,6 +10,7 @@ target_sources(enterprise
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/supplier.h
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/bill.h
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/company.h
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include/enterprise/status.h
 
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/entity.cc
   PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/regexs.cc

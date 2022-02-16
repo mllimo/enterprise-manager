@@ -8,6 +8,7 @@ namespace ent {
   public:
     static const std::regex& email();
     static const std::regex& phone();
+    static const std::regex& cif();
   };
 
 } // namespace ent
