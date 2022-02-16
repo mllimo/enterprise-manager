@@ -48,8 +48,8 @@ TEST(Compnay, CompanyIstreamOstream) {
   supplier_1["id"] = 1;
   supplier_1["name"] = "ab";
   supplier_1["email"] = "ads@asd.es";
-  supplier_2["phone"] = "123456789";
-  supplier_2["address"] = "address";
+  supplier_1["phone"] = "123456789";
+  supplier_1["address"] = "address";
 
   nlohmann::json bill_1;
   bill_1["id"] = 11;
@@ -76,7 +76,7 @@ TEST(Compnay, CompanyIstreamOstream) {
   bill_1["items"] = { item1, item2, item3 };
 
   expected_json["clients"] = { client_1, client_2 };
-  expected_json["suppliers"] = { supplier_1, supplier_2 };
+  expected_json["suppliers"] = { supplier_1 };
   expected_json["bills"] = { bill_1 };
 
   osjson << expected_json;

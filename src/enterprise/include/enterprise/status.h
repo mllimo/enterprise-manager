@@ -14,7 +14,7 @@ namespace ent {
 
   struct Status {
     StatusType type;
-    std::shared_ptr<Entity> data;
+    std::shared_ptr<const Entity> data;
   };
 
 } // namespace ent
