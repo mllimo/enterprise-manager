@@ -13,15 +13,18 @@ void GetFile::Execute(ent::EntityType type) {
     std::cout << "Loading folder: " << path_ << std::endl;
     for (auto& entry : std::filesystem::directory_iterator(path_)) {
       if (!std::filesystem::is_directory(entry.path())) {
-        std::cout << "Loading file: " << entry.path() << std::endl;
-        std::ifstream file(entry.path());
-        Read(file, type);
+        if (std::regex_match(entry.path().string(), ent::Regexs::JsonExtension())) {
+          std::cout << "Loading file: " << entry.path() << std::endl;
+          std::ifstream file(entry.path());
+          Read(file, type);
+        }
       }
     }
   }
-  else {
+  else if (std::regex_match(path_.string(), ent::Regexs::JsonExtension())) {
     std::cout << "Loading file: " << path_ << std::endl;
     std::ifstream file(path_);
     Read(file, type);
   }
+
 }

@@ -16,4 +16,9 @@ namespace ent {
     static std::regex cif_regex("[A-Z][0-9]{8}");
     return cif_regex;
   }
+
+  const std::regex& Regexs::JsonExtension() {
+    static std::regex json_extension_regex(".*\\.json");
+    return json_extension_regex;
+  }
 } // namespace ent

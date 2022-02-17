@@ -36,11 +36,9 @@ namespace ent {
   std::istream& operator>>(std::istream& is, ent::Client& rhs) {
     nlohmann::json json;
     is >> json;
-
     rhs.id_ = json["id"];
     rhs.name_ = json["name"];
     rhs.email_ = json["email"];
-
     return is;
   }
 
