@@ -1,7 +1,7 @@
 ## Build
 
 1. Estando en el root del proyecto generar una carpeta build
-2. Ejecutar dentro de la carpeta buid
+2. Ejecutar dentro de la carpeta build
   1. `conan install ..`
   2. `cmake ..`
   3. `make [all | enterprise | manager]`
