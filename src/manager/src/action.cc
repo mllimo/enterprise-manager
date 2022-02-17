@@ -1,5 +1,7 @@
 #include "action.h"
 
+Action::Action(ent::Entity& entity) : entity_(entity) {}
+
 Action::~Action() {}
 
-void Action::Execute(std::shared_ptr<ent::Entity> entity, ent::EntityType type) {}
+void Action::Execute(ent::EntityType type) {}

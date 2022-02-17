@@ -6,6 +6,9 @@
 
 #include <enterprise/company.h>
 
+#include "get_file.h"
+#include "get_manual.h"
+
 class Manager {
 public:
   Manager(const std::string& cif);
@@ -14,8 +17,11 @@ public:
 private:
   ent::Company company_;
   std::string options_;
+  bool is_exit_;
+  ent::EntityType type;
+
   std::map<std::string, std::function<void()>> menu_actions_;
-  std::map<std::string, std::function<std::shared_ptr<Action>(ent::Company&, std::shared_ptr<Strategy>)> add_actions_;
+  std::map<std::string, std::function<std::shared_ptr<Action>()>> actions_;
 
   void Menu();
   void UserInput();
